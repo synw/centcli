@@ -83,8 +83,8 @@ func Listen() *ishell.Cmd {
 						if msg.Channel == channel {
 							ctx.Println("->", msg.Channel, ":", msg.Payload)
 						}
-			      	case _ = <-c:
-			        	return
+					case _ = <-c:
+						return
 					}
 				}
 			}()
