@@ -81,9 +81,6 @@ func Listen() *ishell.Cmd {
 			ctx.Println("Listening to channel", channel, "...")
 			for msg := range(state.Cli.Channels) {
 				if msg.Channel == channel {
-					if (msg.Payload == false && msg.UID == "nil") {
-						return
-					}
 					ctx.Println("->", msg.Channel, ":", msg.Payload)
 				}
 			}
