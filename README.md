@@ -43,10 +43,6 @@ Note: do not use spaces in your payload
 
 **`LISTEN`**: `listen channel_name`
 
-Stop listening
-
-**`STOP`**: `stop listen channel_name`
-
 ### Channels
 
 **`COUNT`**: `count chans`

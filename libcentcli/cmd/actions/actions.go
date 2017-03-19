@@ -1,7 +1,6 @@
 package actions
 
 import (
-	"sync"
 	"encoding/json"
 	"github.com/abiosoft/ishell"
 	"github.com/acmacalister/skittles"
@@ -29,14 +28,17 @@ func Stop() *ishell.Cmd {
 			if action == "listen" {
 				channel := ctx.Args[1]
 				// check
+				var ns []string
 				found := false
-				for ch, wg := range(state.Listening) {
+				for _, ch := range(state.Listening) {
 					if ch == channel {
 						// close routine
-						wg.Done()
+
+						// unsub
 						state.Cli.Unsubscribe(channel)
 						found = true
-						break
+					} else {
+						ns = append(ns, channel)
 					}
 				}
 				if found == false {
@@ -46,7 +48,7 @@ func Stop() *ishell.Cmd {
 					return
 				}
 				// update state
-				delete(state.Listening, channel)
+				state.Listening = ns
 			}
 		},
 	}
@@ -75,18 +77,16 @@ func Listen() *ishell.Cmd {
 				ctx.Println(err)
 			}
 			// listen
-			var wg sync.WaitGroup
-			wg.Add(1)
-			state.Listening[channel] = wg
-			go func() {
-				ctx.Println("Listening to channel", channel, "...")
-				for msg := range(state.Cli.Channels) {
-					if msg.Channel == channel {
-						ctx.Println("->", msg.Channel, ":", msg.Payload)
+			state.Listening = append(state.Listening, channel)
+			ctx.Println("Listening to channel", channel, "...")
+			for msg := range(state.Cli.Channels) {
+				if msg.Channel == channel {
+					if (msg.Payload == false && msg.UID == "nil") {
+						return
 					}
+					ctx.Println("->", msg.Channel, ":", msg.Payload)
 				}
-			}()
-			go wg.Wait()
+			}
 		},
 	}
 	return command

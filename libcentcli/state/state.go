@@ -3,7 +3,6 @@ package state
 import (
 	"fmt"
 	"errors"
-	"sync"
 	"github.com/synw/terr"
 	"github.com/synw/centcom"
 	"github.com/synw/centcli/libcentcli/datatypes"
@@ -14,7 +13,7 @@ import (
 var Servers map[string]*datatypes.Server
 var Server *datatypes.Server
 var Cli *centcom.Cli
-var Listening map[string]sync.WaitGroup = make(map[string]sync.WaitGroup)
+var Listening []string
 
 
 func InitState() (*terr.Trace) {
