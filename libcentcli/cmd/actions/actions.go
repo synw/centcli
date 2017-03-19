@@ -27,18 +27,14 @@ func Stop() *ishell.Cmd {
 			action := ctx.Args[0]
 			if action == "listen" {
 				channel := ctx.Args[1]
-				// check
-				var ns []string
 				found := false
-				for _, ch := range(state.Listening) {
+				for ch, c := range(state.Listening) {
 					if ch == channel {
 						// close routine
-
+						c <- true
 						// unsub
 						state.Cli.Unsubscribe(channel)
 						found = true
-					} else {
-						ns = append(ns, channel)
 					}
 				}
 				if found == false {
@@ -48,7 +44,7 @@ func Stop() *ishell.Cmd {
 					return
 				}
 				// update state
-				state.Listening = ns
+				delete(state.Listening, channel)
 			}
 		},
 	}
@@ -77,13 +73,21 @@ func Listen() *ishell.Cmd {
 				ctx.Println(err)
 			}
 			// listen
-			state.Listening = append(state.Listening, channel)
+			c := make(chan bool)
+			state.Listening[channel] = c
 			ctx.Println("Listening to channel", channel, "...")
-			for msg := range(state.Cli.Channels) {
-				if msg.Channel == channel {
-					ctx.Println("->", msg.Channel, ":", msg.Payload)
+			go func() {
+				for {
+					select {
+					case msg := <-state.Cli.Channels:
+						if msg.Channel == channel {
+							ctx.Println("->", msg.Channel, ":", msg.Payload)
+						}
+			      	case _ = <-c:
+			        	return
+					}
 				}
-			}
+			}()
 		},
 	}
 	return command
