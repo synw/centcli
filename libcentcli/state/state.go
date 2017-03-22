@@ -13,7 +13,8 @@ import (
 var Servers map[string]*datatypes.Server
 var Server *datatypes.Server
 var Cli *centcom.Cli
-var Listening = make(map[string]chan bool)
+var Listening []string
+var ListenChan chan bool
 
 
 func InitState() (*terr.Trace) {
