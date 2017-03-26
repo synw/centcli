@@ -1,0 +1,236 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "hIsd1unNBRK8kNQfFnYXtSoNt28=",
+			"path": "github.com/abiosoft/ishell",
+			"revision": "f58403d26a7c0ad68945110a7ae613b99d869ced",
+			"revisionTime": "2017-03-06T21:04:30Z"
+		},
+		{
+			"checksumSHA1": "dNtV7LLd8OHGZb0J6bFFTKViTqk=",
+			"path": "github.com/acmacalister/skittles",
+			"revision": "7423546701e13031dbb599ee200cf873b5b55ab2",
+			"revisionTime": "2016-06-09T00:30:31Z"
+		},
+		{
+			"checksumSHA1": "d/6S7+9GFMrJsCTs+4AQ/7AdXC8=",
+			"path": "github.com/centrifugal/centrifuge-go",
+			"revision": "c6e94e0ababd7ae1750f5136d5cc5ba5931701f9",
+			"revisionTime": "2017-02-26T21:43:56Z"
+		},
+		{
+			"checksumSHA1": "h9ZhlKWBV0qLL7dhQtr+xljMJA8=",
+			"path": "github.com/centrifugal/centrifugo/libcentrifugo/auth",
+			"revision": "56f7e3779bb0957914bc18ab2c0fc67fed9f64eb",
+			"revisionTime": "2017-03-03T22:33:36Z"
+		},
+		{
+			"checksumSHA1": "YeaMFQqQgY8ZTa5sNTSIuYTPsik=",
+			"path": "github.com/centrifugal/gocent",
+			"revision": "2075ee96875ffda78bb6d3aba8c52ee46679f69f",
+			"revisionTime": "2016-12-17T11:31:06Z"
+		},
+		{
+			"checksumSHA1": "yLQg8NdQKYqqytcvKA/0EBkOIkw=",
+			"path": "github.com/flynn-archive/go-shlex",
+			"revision": "3f9db97f856818214da2e1057f8ad84803971cff",
+			"revisionTime": "2015-05-15T14:53:56Z"
+		},
+		{
+			"checksumSHA1": "JhI3dzfib2NMGL11NiUswioZP8U=",
+			"path": "github.com/fsnotify/fsnotify",
+			"revision": "7d7316ed6e1ed2de075aab8dfc76de5d158d66e1",
+			"revisionTime": "2016-08-16T05:19:40Z"
+		},
+		{
+			"checksumSHA1": "SGSXlSU1TFtg5aTlVA9v4Ka86lU=",
+			"origin": "github.com/centrifugal/centrifugo/vendor/github.com/gorilla/securecookie",
+			"path": "github.com/gorilla/securecookie",
+			"revision": "56f7e3779bb0957914bc18ab2c0fc67fed9f64eb",
+			"revisionTime": "2017-03-03T22:33:36Z"
+		},
+		{
+			"checksumSHA1": "G778A9feKkdW7ZjeDdj5qoU0Ku4=",
+			"path": "github.com/gorilla/websocket",
+			"revision": "b258b4fadb573ac412f187b9f31974ea99d32f50",
+			"revisionTime": "2017-03-02T22:46:13Z"
+		},
+		{
+			"checksumSHA1": "Ok3Csn6Voou7pQT6Dv2mkwpqFtw=",
+			"path": "github.com/hashicorp/hcl",
+			"revision": "630949a3c5fa3c613328e1b8256052cbc2327c9b",
+			"revisionTime": "2017-02-17T16:47:38Z"
+		},
+		{
+			"checksumSHA1": "XQmjDva9JCGGkIecOgwtBEMCJhU=",
+			"path": "github.com/hashicorp/hcl/hcl/ast",
+			"revision": "630949a3c5fa3c613328e1b8256052cbc2327c9b",
+			"revisionTime": "2017-02-17T16:47:38Z"
+		},
+		{
+			"checksumSHA1": "MGYzZActhzSs9AnCx3wrEYVbKFg=",
+			"path": "github.com/hashicorp/hcl/hcl/parser",
+			"revision": "630949a3c5fa3c613328e1b8256052cbc2327c9b",
+			"revisionTime": "2017-02-17T16:47:38Z"
+		},
+		{
+			"checksumSHA1": "z6wdP4mRw4GVjShkNHDaOWkbxS0=",
+			"path": "github.com/hashicorp/hcl/hcl/scanner",
+			"revision": "630949a3c5fa3c613328e1b8256052cbc2327c9b",
+			"revisionTime": "2017-02-17T16:47:38Z"
+		},
+		{
+			"checksumSHA1": "oS3SCN9Wd6D8/LG0Yx1fu84a7gI=",
+			"path": "github.com/hashicorp/hcl/hcl/strconv",
+			"revision": "630949a3c5fa3c613328e1b8256052cbc2327c9b",
+			"revisionTime": "2017-02-17T16:47:38Z"
+		},
+		{
+			"checksumSHA1": "c6yprzj06ASwCo18TtbbNNBHljA=",
+			"path": "github.com/hashicorp/hcl/hcl/token",
+			"revision": "630949a3c5fa3c613328e1b8256052cbc2327c9b",
+			"revisionTime": "2017-02-17T16:47:38Z"
+		},
+		{
+			"checksumSHA1": "138aCV5n8n7tkGYMsMVQQnnLq+0=",
+			"path": "github.com/hashicorp/hcl/json/parser",
+			"revision": "630949a3c5fa3c613328e1b8256052cbc2327c9b",
+			"revisionTime": "2017-02-17T16:47:38Z"
+		},
+		{
+			"checksumSHA1": "YdvFsNOMSWMLnY6fcliWQa0O5Fw=",
+			"path": "github.com/hashicorp/hcl/json/scanner",
+			"revision": "630949a3c5fa3c613328e1b8256052cbc2327c9b",
+			"revisionTime": "2017-02-17T16:47:38Z"
+		},
+		{
+			"checksumSHA1": "fNlXQCQEnb+B3k5UDL/r15xtSJY=",
+			"path": "github.com/hashicorp/hcl/json/token",
+			"revision": "630949a3c5fa3c613328e1b8256052cbc2327c9b",
+			"revisionTime": "2017-02-17T16:47:38Z"
+		},
+		{
+			"checksumSHA1": "oIkoHb8+rM5Etur5HhZVY/sDQKQ=",
+			"path": "github.com/jpillora/backoff",
+			"revision": "06c7a16c845dc8e0bf575fafeeca0f5462f5eb4d",
+			"revisionTime": "2017-02-22T00:19:28Z"
+		},
+		{
+			"checksumSHA1": "KR72MpmwQRMYJuK0BHi2RWgGU2o=",
+			"path": "github.com/magiconair/properties",
+			"revision": "b3b15ef068fd0b17ddf408a23669f20811d194d2",
+			"revisionTime": "2017-01-13T09:48:12Z"
+		},
+		{
+			"checksumSHA1": "MlX15lJuV8DYARX5RJY8rqrSEWQ=",
+			"path": "github.com/mitchellh/mapstructure",
+			"revision": "53818660ed4955e899c0bcafa97299a388bd7c8e",
+			"revisionTime": "2017-03-07T20:11:23Z"
+		},
+		{
+			"checksumSHA1": "gcLub3oB+u4QrOJZcYmk/y2AP4k=",
+			"path": "github.com/nu7hatch/gouuid",
+			"revision": "179d4d0c4d8d407a32af483c2354df1d2c91e6c3",
+			"revisionTime": "2013-12-21T20:05:32Z"
+		},
+		{
+			"checksumSHA1": "F1IYMLBLAZaTOWnmXsgaxTGvrWI=",
+			"path": "github.com/pelletier/go-buffruneio",
+			"revision": "c37440a7cf42ac63b919c752ca73a85067e05992",
+			"revisionTime": "2017-02-27T22:03:11Z"
+		},
+		{
+			"checksumSHA1": "wt+S/bRzZRu7vRDd39w5q1RCr9I=",
+			"path": "github.com/pelletier/go-toml",
+			"revision": "13d49d4606eb801b8f01ae542b4afc4c6ee3d84a",
+			"revisionTime": "2017-03-02T17:43:01Z"
+		},
+		{
+			"checksumSHA1": "lBehULzb2/kIK3wZ0gz2yNmHq9s=",
+			"path": "github.com/spf13/afero",
+			"revision": "9be650865eab0c12963d8753212f4f9c66cdcf12",
+			"revisionTime": "2017-02-17T16:41:46Z"
+		},
+		{
+			"checksumSHA1": "5KRbEQ28dDaQmKwAYTD0if/aEvg=",
+			"path": "github.com/spf13/afero/mem",
+			"revision": "9be650865eab0c12963d8753212f4f9c66cdcf12",
+			"revisionTime": "2017-02-17T16:41:46Z"
+		},
+		{
+			"checksumSHA1": "iPdWlXqln9EMtGPJaabe82Nnr1s=",
+			"path": "github.com/spf13/cast",
+			"revision": "ce135a4ebeee6cfe9a26c93ee0d37825f26113c7",
+			"revisionTime": "2017-03-03T19:59:13Z"
+		},
+		{
+			"checksumSHA1": "9pkkhgKp3mwSreiML3plQlQYdLQ=",
+			"path": "github.com/spf13/jwalterweatherman",
+			"revision": "fa7ca7e836cf3a8bb4ebf799f472c12d7e903d66",
+			"revisionTime": "2017-01-09T13:33:55Z"
+		},
+		{
+			"checksumSHA1": "5KvHyB1CImtwZT3fwNkNUlc8R0k=",
+			"path": "github.com/spf13/pflag",
+			"revision": "9ff6c6923cfffbcd502984b8e0c80539a94968b7",
+			"revisionTime": "2017-01-30T21:42:45Z"
+		},
+		{
+			"checksumSHA1": "cNe3MKwsFLDRzRjKEtOduUiG344=",
+			"path": "github.com/spf13/viper",
+			"revision": "7538d73b4eb9511d85a9f1dfef202eeb8ac260f4",
+			"revisionTime": "2017-02-17T16:38:17Z"
+		},
+		{
+			"checksumSHA1": "r1CVu0nZEfpGxfnjxivui7ScRmA=",
+			"path": "github.com/synw/centcom",
+			"revision": "534d2bbf5c0b990b50fe9e34b526772f053736c8",
+			"revisionTime": "2017-03-22T10:07:00Z"
+		},
+		{
+			"checksumSHA1": "+hf8VBUu9E/Y0zmrU0Im7pSfw78=",
+			"path": "github.com/synw/centcom/state",
+			"revision": "534d2bbf5c0b990b50fe9e34b526772f053736c8",
+			"revisionTime": "2017-03-22T10:07:00Z"
+		},
+		{
+			"checksumSHA1": "kId0UPfsZGFPboqrXCEbj/qF1mg=",
+			"path": "github.com/synw/terr",
+			"revision": "4398ebf8418a7ba8c42d88bce4f70e880cd4a6ee",
+			"revisionTime": "2017-03-07T12:28:16Z"
+		},
+		{
+			"checksumSHA1": "/oZpHfYc+ZgOwYAhlvcMhmETYpw=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "99f16d856c9836c42d24e7ab64ea72916925fa97",
+			"revisionTime": "2017-03-08T15:04:45Z"
+		},
+		{
+			"checksumSHA1": "ziMb9+ANGRJSSIuxYdRbA+cDRBQ=",
+			"path": "golang.org/x/text/transform",
+			"revision": "f28f36722d5ef2f9655ad3de1f248e3e52ad5ebd",
+			"revisionTime": "2017-02-28T17:26:26Z"
+		},
+		{
+			"checksumSHA1": "7Hjtgu1Yu+Ks0cKf2ldRhXAu/LE=",
+			"path": "golang.org/x/text/unicode/norm",
+			"revision": "f28f36722d5ef2f9655ad3de1f248e3e52ad5ebd",
+			"revisionTime": "2017-02-28T17:26:26Z"
+		},
+		{
+			"checksumSHA1": "VAPpB3iZ9bfjWqNDoX7qXqfRcQU=",
+			"path": "gopkg.in/readline.v1",
+			"revision": "62c6fe6193755f722b8b8788aa7357be55a50ff1",
+			"revisionTime": "2016-07-26T13:51:17Z"
+		},
+		{
+			"checksumSHA1": "0KwOlQV1dNUh9X8t+5s7nX5bqfk=",
+			"path": "gopkg.in/yaml.v2",
+			"revision": "a3f3340b5840cee44f372bddb5880fcbc419b46a",
+			"revisionTime": "2017-02-08T14:18:51Z"
+		}
+	],
+	"rootPath": "github.com/synw/centcli"
+}
