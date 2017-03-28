@@ -14,7 +14,7 @@ var Servers map[string]*datatypes.Server
 var Server *datatypes.Server
 var Cli *centcom.Cli
 var Listening []string
-var ListenChan chan bool
+var ListenChan chan struct{}
 
 
 func InitState() (*terr.Trace) {

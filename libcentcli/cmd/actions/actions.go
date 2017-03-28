@@ -37,7 +37,6 @@ func Stop() *ishell.Cmd {
 						found = true
 						// shutdown listen routine if it is the last channel
 						if len(state.Listening) == 1 {
-							state.ListenChan <- true
 							close(state.ListenChan)
 							
 						}
@@ -82,7 +81,7 @@ func Listen() *ishell.Cmd {
 			}
 			// listen
 			if len(state.Listening) == 0 {
-				c := make(chan bool)
+				c := make(chan struct{})
 				go func() {
 					for {
 						select {
