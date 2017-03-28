@@ -25,13 +25,13 @@ func GetServers() (map[string]*datatypes.Server, *terr.Trace) {
 			return servers, trace
 		}
 	}
-	available_servers := viper.Get("servers").([]interface{})	
+	available_servers := viper.Get("nodes").([]interface{})
 	for i, _ := range available_servers {
 		sv := available_servers[i].(map[string]interface{})
 		name := sv["name"].(string)
-		host := sv["centrifugo_host"].(string)
-		port := int(sv["centrifugo_port"].(float64))
-		key := sv["centrifugo_key"].(string)		
+		host := sv["host"].(string)
+		port := int(sv["port"].(float64))
+		key := sv["secret"].(string)
 		servers[name] = &datatypes.Server{name, host, port, key}
 	}
 	return servers, nil

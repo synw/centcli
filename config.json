@@ -1,16 +1,16 @@
 {
-	"servers":[
+	"nodes": [
 		{
-		"name": "local",
-		"centrifugo_host":"localhost",
-		"centrifugo_port":8001,
-		"centrifugo_key":"secret_key"
+			"name": "local",
+			"host":"localhost",
+			"port": 8001,
+			"secret":"secret_key"
 		},
 		{
-		"name": "local2",
-		"centrifugo_host":"localhost",
-		"centrifugo_port":8002,
-		"centrifugo_key":"secret_key"
+			"name": "local2",
+			"host":"localhost",
+			"port": 8002,
+			"secret":"secret_key"
 		}
 	]
 }
