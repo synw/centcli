@@ -5,6 +5,7 @@ import (
 	"errors"
 	"strconv"
 	"strings"
+	"sort"
 	"github.com/centrifugal/gocent"
 	"github.com/abiosoft/ishell"
 	"github.com/acmacalister/skittles"
@@ -177,7 +178,9 @@ func getStat(node *gocent.NodeInfo, name string) (string, *terr.Trace) {
 func statsForNode(node *gocent.NodeInfo, mode string) string {
 	msg := msgForNode(node)
 	metrics := node.Metrics
-	for k, v := range(metrics) {
+	keys := getSortedKeys(metrics)
+	for _, k := range(keys) {
+		v := metrics[k]
 		if mode == "all" {
 			msg = msg+"\n - "+k+" : "+formatNum(v)
 		} else if mode == "node" {
@@ -210,4 +213,13 @@ func msgForNode(node *gocent.NodeInfo) string {
 	msg = msg+"Stats for node "+node.Name+" ("+addr+")"
 	msg = msg+"\n-------------------------------------------"
 	return msg
+}
+
+func getSortedKeys(mapToSort map[string]int64) []string {
+	var keys []string
+	for k := range mapToSort {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
 }
