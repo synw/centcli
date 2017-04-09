@@ -6,9 +6,11 @@ import (
 	"strconv"
 	"strings"
 	"sort"
+	"time"
 	"github.com/centrifugal/gocent"
 	"github.com/abiosoft/ishell"
 	"github.com/acmacalister/skittles"
+	"github.com/dustin/go-humanize"
 	"github.com/synw/terr"
 	"github.com/synw/centcli/libcentcli/state"
 )
@@ -165,7 +167,7 @@ func getStat(node *gocent.NodeInfo, name string) (string, *terr.Trace) {
 	var msg string
 	for k, v := range(metrics) {
 		if k == name {
-			msg = msg+" "+k+" : "+formatNum(v)
+			msg = msg+" "+k+" : "+formatNum(k, v)
 			return msg, nil
 		}
 	}
@@ -181,29 +183,48 @@ func statsForNode(node *gocent.NodeInfo, mode string) string {
 	keys := getSortedKeys(metrics)
 	for _, k := range(keys) {
 		v := metrics[k]
+		num := formatNum(k, v)
 		if mode == "all" {
-			msg = msg+"\n - "+k+" : "+formatNum(v)
+			msg = msg+"\n - "+k+" : "+num
 		} else if mode == "node" {
 			if strings.HasPrefix(k, "node") {
-				msg = msg+"\n - "+k+" : "+formatNum(v)
+				msg = msg+"\n - "+k+" : "+num
 			} 
 		} else if mode == "http" {
 			if strings.HasPrefix(k, "http") {
-				msg = msg+"\n - "+k+" : "+formatNum(v)
+				msg = msg+"\n - "+k+" : "+num
 			}
 		} else if mode == "client" {
 			if strings.HasPrefix(k, "client") {
-				msg = msg+"\n - "+k+" : "+formatNum(v)
+				msg = msg+"\n - "+k+" : "+num
 			}
 		}
 	}
 	return msg
 }
 
-func formatNum(num int64) string {
+func formatNum(key string, num int64) string {
+	toHumanize := []string{"node_memory_heap_alloc", "node_memory_heap_sys", "node_memory_stack_inuse", "node_memory_sys"}
+	hum := false
+	for _, v := range(toHumanize) {
+		if key == v {
+			hum = true
+			break
+		}
+	}
 	str := strconv.FormatInt(num, 10)
+	if hum == true {
+		str = humanize.Bytes(uint64(num))
+	}
 	n := skittles.BoldWhite(str)
 	msg := fmt.Sprintf("%s", n)
+	if key == "node_uptime_seconds" {
+		now := time.Now()
+		seconds := int(num)
+		d := time.Duration(time.Duration(seconds)*time.Second)
+		boot := now.Add(-d)
+		msg = msg+" ("+humanize.Time(boot)+")"
+	}
 	return msg
 }
 
