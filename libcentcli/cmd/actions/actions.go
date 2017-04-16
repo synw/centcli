@@ -20,7 +20,7 @@ func Stop() *ishell.Cmd {
         		return
         	}
 			if len(ctx.Args) != 2 {
-				err := terr.Err("One argument is required: ex: listen channel_name")
+				err := terr.Err("One argument is required: ex: stop listen channel_name")
 				ctx.Println(err.Error())
 				return
 			}

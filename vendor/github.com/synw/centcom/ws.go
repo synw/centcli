@@ -31,6 +31,7 @@ type Cli struct {
 	Channels chan *Msg
 	HttpOk bool
 	IsConnected bool
+	User string
 }
 
 func (cli Cli) CheckHttp() error {
@@ -91,7 +92,7 @@ func (cli Cli) Publish(channel string, payload interface{}) error {
 	}
 	sub.Publish(dataBytes)
 	if err != nil {
-		return err		
+		return err
 	}
 	if state.Verbosity > 2 {
 		msg := "Message sent into channel "+channel
@@ -102,14 +103,18 @@ func (cli Cli) Publish(channel string, payload interface{}) error {
 
 // constructors
 
-func NewClient(host string, port int, key string) *Cli {
+func NewClient(host string, port int, key string, args ...string) *Cli {
+	user := "cli"
+	if len(args) > 0 {
+		user = args[0]
+	}
 	addr := "http://"+host+":"+strconv.Itoa(port)
 	http := gocent.NewClient(addr, key, 5*time.Second)
 	var ws centrifuge.Centrifuge
 	var subevents *centrifuge.SubEventHandler
 	subs := make(map[string]centrifuge.Sub)
 	c := make(chan *Msg)
-	cl := Cli{host, port, key, http, ws, subevents, subs, c, false, false}
+	cl := Cli{host, port, key, http, ws, subevents, subs, c, false, false, user}
 	return &cl
 }
 
@@ -124,7 +129,7 @@ func Connect(cli *Cli) (error) {
 	// Never show secret to client of your application. Keep it on your application backend only.
 	secret := cli.Key
 	// Application user ID.
-	user := "cli"
+	user := cli.User
 	// Current timestamp as string.
 	timestamp := centrifuge.Timestamp()
 	// Empty info.
@@ -269,4 +274,3 @@ func newErr(msg string) error {
 	err := errors.New(msg)
 	return err
 }
-

@@ -33,6 +33,12 @@
 			"revisionTime": "2016-12-17T11:31:06Z"
 		},
 		{
+			"checksumSHA1": "rhLUtXvcmouYuBwOq9X/nYKzvNg=",
+			"path": "github.com/dustin/go-humanize",
+			"revision": "259d2a102b871d17f30e3cd9881a642961a1e486",
+			"revisionTime": "2017-02-28T07:34:54Z"
+		},
+		{
 			"checksumSHA1": "yLQg8NdQKYqqytcvKA/0EBkOIkw=",
 			"path": "github.com/flynn-archive/go-shlex",
 			"revision": "3f9db97f856818214da2e1057f8ad84803971cff",
@@ -184,10 +190,10 @@
 			"revisionTime": "2017-02-17T16:38:17Z"
 		},
 		{
-			"checksumSHA1": "r1CVu0nZEfpGxfnjxivui7ScRmA=",
+			"checksumSHA1": "T/UyrAuHEzmpV6IiazHZb9HnXe8=",
 			"path": "github.com/synw/centcom",
-			"revision": "534d2bbf5c0b990b50fe9e34b526772f053736c8",
-			"revisionTime": "2017-03-22T10:07:00Z"
+			"revision": "0b30ae1217a558a096cc0f6f194c8f1003e5a286",
+			"revisionTime": "2017-04-16T11:01:57Z"
 		},
 		{
 			"checksumSHA1": "+hf8VBUu9E/Y0zmrU0Im7pSfw78=",

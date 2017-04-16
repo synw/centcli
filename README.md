@@ -10,13 +10,15 @@ Edit `config.json` and add servers
 
 ### Initialization
 
-Server to use (must be set in config. Note: start the program with the flag `-s=server_name` will do the same):
+Server to use (must be set in config): start the program with the flag `-s=server_name` will initialize a connection
 
 **`USE`**: `use server_name`
 
 Server actually in use:
 
 **`USING`**: `using`
+
+To set the client's Centrifugo username use the flag `-u=clientusername`.
 
 ### Statistics
 

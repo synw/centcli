@@ -10,10 +10,11 @@ import (
 
 var shell = ishell.New()
 var use = flag.String("s", "unset", "Use server: -s=server_name")
+var user = flag.String("u", "cli", "Centrifugo username for client")
 
 func main() {
 	flag.Parse()
-	trace := state.InitState()
+	trace := state.InitState(*user)
 	if trace != nil {
 		trace.Printc()
 	}

@@ -15,9 +15,11 @@ var Server *datatypes.Server
 var Cli *centcom.Cli
 var Listening []string
 var ListenChan chan struct{}
+var User string = "cli42"
 
 
-func InitState() (*terr.Trace) {
+func InitState(user string) (*terr.Trace) {
+	User = user
 	servers, trace := conf.GetServers()
 	if trace != nil {
 		trace := terr.Pass("state.InitState", trace)
@@ -34,7 +36,7 @@ func InitState() (*terr.Trace) {
 
 func InitServer() *terr.Trace {
 	centcom.SetVerbosity(1)
-	cli := centcom.NewClient(Server.Host, Server.Port, Server.Key)
+	cli := centcom.NewClient(Server.Host, Server.Port, Server.Key, User)
 	err := centcom.Connect(cli)
 	if err != nil {
 		trace := terr.New("state.InitServer", err)
