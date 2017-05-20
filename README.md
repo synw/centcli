@@ -2,9 +2,29 @@
 
 Terminal client for the [Centrifugo](https://github.com/centrifugal/centrifugo/) websockets server.
 
-## Usage
+## Configuration
 
-Edit `config.json` and add servers
+Create a `config.json` with your Centrifugo nodes. This file should be located in the same directory as the binary or
+in a `~/.centcli` directory:
+
+   ```javascript
+   {
+    "nodes": [
+     {
+      "name": "local",
+      "host":"localhost",
+      "port": 8001,
+      "secret":"secret_key"
+     },
+     {
+      "name": "local2",
+      "host":"localhost",
+      "port": 8002,
+      "secret":"secret_key"
+     }
+	]
+   }
+   ```
 
 ## Available commands
 
