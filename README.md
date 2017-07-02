@@ -12,14 +12,12 @@ in a `~/.centcli` directory:
     "nodes": [
      {
       "name": "local",
-      "host":"localhost",
-      "port": 8001,
+      "addr":"localhost:8001",
       "secret":"secret_key"
      },
      {
       "name": "local2",
-      "host":"localhost",
-      "port": 8002,
+      "addr":"localhost:8002",
       "secret":"secret_key"
      }
 	]

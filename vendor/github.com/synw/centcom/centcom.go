@@ -2,22 +2,21 @@ package centcom
 
 import (
 	"fmt"
-	"strconv"
 	"github.com/synw/centcom/state"
+	"strconv"
 )
 
-
-func New(host string, port int, key string) *Cli {
-	return NewClient(host, port, key)
+func New(addr string, key string) *Cli {
+	return NewClient(addr, key)
 }
 
 func Disconnect(cli *Cli) {
 	cli.Conn.Close()
 	if state.Verbosity > 0 {
-		msg := "Disconnected from "+cli.Host
+		msg := "Disconnected from " + cli.Addr
 		fmt.Println(msg)
 	}
-	close(cli.Channels)	
+	close(cli.Channels)
 }
 
 func SetVerbosity(v int) {
@@ -26,7 +25,7 @@ func SetVerbosity(v int) {
 
 func State() string {
 	v := strconv.Itoa(state.Verbosity)
-	msg := "- Verbosity is set to "+v
+	msg := "- Verbosity is set to " + v
 	return msg
 }
 

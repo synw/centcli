@@ -1,59 +1,55 @@
 package centcom
 
 import (
-	"fmt"
-	"errors"
-	"time"	
-	"strconv"
 	"encoding/json"
-	"github.com/centrifugal/gocent"
+	"errors"
+	"fmt"
+	color "github.com/acmacalister/skittles"
 	"github.com/centrifugal/centrifuge-go"
 	"github.com/centrifugal/centrifugo/libcentrifugo/auth"
-	color "github.com/acmacalister/skittles"
+	"github.com/centrifugal/gocent"
 	"github.com/synw/centcom/state"
+	"time"
 )
 
-
 type Msg struct {
-	UID	string
+	UID     string
 	Channel string
 	Payload interface{}
 }
 
 type Cli struct {
-	Host string
-	Port int
-	Key string
-	Http *gocent.Client
-	Conn centrifuge.Centrifuge
-	SubEvents *centrifuge.SubEventHandler
-	Subs map[string]centrifuge.Sub
-	Channels chan *Msg
-	HttpOk bool
+	Addr        string
+	Key         string
+	Http        *gocent.Client
+	Conn        centrifuge.Centrifuge
+	SubEvents   *centrifuge.SubEventHandler
+	Subs        map[string]centrifuge.Sub
+	Channels    chan *Msg
+	HttpOk      bool
 	IsConnected bool
-	User string
+	User        string
 }
 
 func (cli Cli) CheckHttp() error {
-	url := "http://"+cli.Host+":"+strconv.Itoa(cli.Port)
-	cli.Http = gocent.NewClient(url, cli.Key, 5*time.Second)
+	cli.Http = gocent.NewClient("http://"+cli.Addr, cli.Key, 5*time.Second)
 	// test the http connection
 	err := checkHttpConnection(&cli)
 	if err != nil {
 		return err
 	}
-	cli.HttpOk = true;
+	cli.HttpOk = true
 	return nil
 }
 
 func (cli Cli) Subscribe(channel string) error {
 	sub, err := cli.Conn.Subscribe(channel, cli.SubEvents)
 	if err != nil {
-		return  err
+		return err
 	}
 	cli.Subs[channel] = sub
 	if state.Verbosity > 1 {
-		msg := "Suscribed to channel "+channel
+		msg := "Suscribed to channel " + channel
 		fmt.Println(ok(msg))
 	}
 	return nil
@@ -62,7 +58,7 @@ func (cli Cli) Subscribe(channel string) error {
 func (cli Cli) Unsubscribe(channel string) error {
 	sub, err := getSubscription(&cli, channel)
 	if err != nil {
-		return err		
+		return err
 	}
 	err = sub.Unsubscribe()
 	if err != nil {
@@ -70,15 +66,15 @@ func (cli Cli) Unsubscribe(channel string) error {
 	}
 	delete(cli.Subs, channel)
 	if state.Verbosity > 1 {
-		msg := "Unsuscribed to channel "+channel
+		msg := "Unsuscribed to channel " + channel
 		fmt.Println(ok(msg))
-	}	
+	}
 	return nil
 }
 
 func (cli Cli) Publish(channel string, payload interface{}) error {
 	if len(cli.Subs) == 0 {
-		msg := "No subscription found for channel "+channel
+		msg := "No subscription found for channel " + channel
 		err := newErr(msg)
 		return err
 	}
@@ -95,7 +91,7 @@ func (cli Cli) Publish(channel string, payload interface{}) error {
 		return err
 	}
 	if state.Verbosity > 2 {
-		msg := "Message sent into channel "+channel
+		msg := "Message sent into channel " + channel
 		fmt.Println(msg)
 	}
 	return nil
@@ -103,18 +99,17 @@ func (cli Cli) Publish(channel string, payload interface{}) error {
 
 // constructors
 
-func NewClient(host string, port int, key string, args ...string) *Cli {
+func NewClient(addr string, key string, args ...string) *Cli {
 	user := "cli"
 	if len(args) > 0 {
 		user = args[0]
 	}
-	addr := "http://"+host+":"+strconv.Itoa(port)
-	http := gocent.NewClient(addr, key, 5*time.Second)
+	http := gocent.NewClient("http://"+addr, key, 5*time.Second)
 	var ws centrifuge.Centrifuge
 	var subevents *centrifuge.SubEventHandler
 	subs := make(map[string]centrifuge.Sub)
 	c := make(chan *Msg)
-	cl := Cli{host, port, key, http, ws, subevents, subs, c, false, false, user}
+	cl := Cli{addr, key, http, ws, subevents, subs, c, false, false, user}
 	return &cl
 }
 
@@ -125,7 +120,7 @@ func NewMsg(uid string, channel_name string, payload interface{}) *Msg {
 
 // initialization
 
-func Connect(cli *Cli) (error) {
+func Connect(cli *Cli) error {
 	// Never show secret to client of your application. Keep it on your application backend only.
 	secret := cli.Key
 	// Application user ID.
@@ -136,7 +131,7 @@ func Connect(cli *Cli) (error) {
 	info := ""
 	// Generate client token so Centrifugo server can trust connection parameters received from client.
 	token := auth.GenerateClientToken(secret, user, timestamp, info)
-	
+
 	creds := &centrifuge.Credentials{
 		User:      user,
 		Timestamp: timestamp,
@@ -146,10 +141,10 @@ func Connect(cli *Cli) (error) {
 
 	onMessage := func(sub centrifuge.Sub, rawmsg centrifuge.Message) error {
 		//fmt.Println(fmt.Sprintf("New message received in channel %s: %#v", sub.Channel(), rawmsg))
-		channel := fmt.Sprintf("%s", sub.Channel())	
+		channel := fmt.Sprintf("%s", sub.Channel())
 		msg, err := decodeCentrifugeMsg(channel, &rawmsg)
-		if err != nil {	
-			msg := "Error decoding Centrifuge message: "+err.Error()
+		if err != nil {
+			msg := "Error decoding Centrifuge message: " + err.Error()
 			err := newErr(msg)
 			fmt.Println(err.Error())
 		}
@@ -165,19 +160,19 @@ func Connect(cli *Cli) (error) {
 	}
 
 	onLeave := func(sub centrifuge.Sub, msg centrifuge.ClientInfo) error {
-		if state.Verbosity > 2 {		
+		if state.Verbosity > 2 {
 			fmt.Println(fmt.Sprintf("User %s left channel %s with client ID %s", msg.User, sub.Channel(), msg.Client))
 		}
 		return nil
 	}
-	
+
 	onPrivateSub := func(c centrifuge.Centrifuge, req *centrifuge.PrivateRequest) (*centrifuge.PrivateSign, error) {
 		info := ""
 		sign := auth.GenerateChannelSign(cli.Key, req.ClientID, req.Channel, info)
 		privateSign := &centrifuge.PrivateSign{Sign: sign, Info: info}
 		return privateSign, nil
 	}
-	
+
 	onDisconnect := func(c centrifuge.Centrifuge) error {
 		fmt.Println("Disconnected")
 		err := c.Reconnect(centrifuge.DefaultBackoffReconnect)
@@ -188,7 +183,7 @@ func Connect(cli *Cli) (error) {
 		}
 		return nil
 	}
-	
+
 	events := &centrifuge.EventHandler{
 		OnPrivateSub: onPrivateSub,
 		OnDisconnect: onDisconnect,
@@ -199,21 +194,21 @@ func Connect(cli *Cli) (error) {
 		OnJoin:    onJoin,
 		OnLeave:   onLeave,
 	}
-	
-	wsURL := "ws://"+cli.Host+":"+strconv.Itoa(cli.Port)+"/connection/websocket"
+
+	wsURL := "ws://" + cli.Addr + "/connection/websocket"
 	conn := centrifuge.NewCentrifuge(wsURL, creds, events, centrifuge.DefaultConfig)
 
 	err := conn.Connect()
 	if err != nil {
-		msg := "Error connecting to "+wsURL+" : "+err.Error()
+		msg := "Error connecting to " + wsURL + " : " + err.Error()
 		err = newErr(msg)
 		return err
 	}
-	
+
 	cli.Conn = conn
 	cli.SubEvents = subevents
 	if state.Verbosity > 0 {
-		msg := "Connected to "+wsURL
+		msg := "Connected to " + wsURL
 		fmt.Println(ok(msg))
 	}
 	return nil
@@ -232,12 +227,12 @@ func DecodeHttpMsg(raw *gocent.Message) (*Msg, error) {
 // internal methods
 
 func getSubscription(cli *Cli, channel_name string) (centrifuge.Sub, error) {
-	for name, sub := range(cli.Subs) {
+	for name, sub := range cli.Subs {
 		if name == channel_name {
 			return sub, nil
 		}
 	}
-	msg := "Can not find channel "+channel_name+" in server subscriptions"
+	msg := "Can not find channel " + channel_name + " in server subscriptions"
 	err := newErr(msg)
 	var s centrifuge.Sub
 	return s, err
@@ -267,7 +262,7 @@ func decodeCentrifugeMsg(channel string, centmsg *centrifuge.Message) (*Msg, err
 	return msg, nil
 }
 
-func checkHttpConnection(cli *Cli) error  {
+func checkHttpConnection(cli *Cli) error {
 	_, err := cli.Http.Publish("$devnull", []byte(`{"test": "test"}`))
 	if err != nil {
 		return newErr(err.Error())
@@ -276,7 +271,7 @@ func checkHttpConnection(cli *Cli) error  {
 }
 
 func ok(msg string) string {
-	msg = "["+color.Green("ok")+"] "+msg
+	msg = "[" + color.Green("ok") + "] " + msg
 	return msg
 }
 

@@ -1,14 +1,13 @@
 package state
 
 import (
-	"fmt"
 	"errors"
-	"github.com/synw/terr"
-	"github.com/synw/centcom"
-	"github.com/synw/centcli/libcentcli/datatypes"
+	"fmt"
 	"github.com/synw/centcli/libcentcli/conf"
+	"github.com/synw/centcli/libcentcli/datatypes"
+	"github.com/synw/centcom"
+	"github.com/synw/terr"
 )
-
 
 var Servers map[string]*datatypes.Server
 var Server *datatypes.Server
@@ -17,8 +16,7 @@ var Listening []string
 var ListenChan chan struct{}
 var User string = "cli42"
 
-
-func InitState(user string) (*terr.Trace) {
+func InitState(user string) *terr.Trace {
 	User = user
 	servers, trace := conf.GetServers()
 	if trace != nil {
@@ -27,8 +25,8 @@ func InitState(user string) (*terr.Trace) {
 	}
 	Servers = servers
 	msg := "Found servers "
-	for name, _ := range(Servers) {
-		msg = msg+name+" "
+	for name, _ := range Servers {
+		msg = msg + name + " "
 	}
 	fmt.Println(msg)
 	return nil
@@ -36,7 +34,7 @@ func InitState(user string) (*terr.Trace) {
 
 func InitServer() *terr.Trace {
 	centcom.SetVerbosity(1)
-	cli := centcom.NewClient(Server.Host, Server.Port, Server.Key, User)
+	cli := centcom.NewClient(Server.Addr, Server.Key)
 	err := centcom.Connect(cli)
 	if err != nil {
 		trace := terr.New("state.InitServer", err)
@@ -63,12 +61,12 @@ func SetServer(name string) *terr.Trace {
 }
 
 func ServerExists(server_name string) (*datatypes.Server, *terr.Trace) {
-	for name, server := range(Servers) {
+	for name, server := range Servers {
 		if server_name == name {
 			return server, nil
 		}
 	}
-	msg := "Server "+server_name+" not found: please check your config file"
+	msg := "Server " + server_name + " not found: please check your config file"
 	err := errors.New(msg)
 	trace := terr.New("cmd.state.serverExists", err)
 	server := &datatypes.Server{}

@@ -228,9 +228,8 @@ func formatNum(key string, num int64) string {
 }
 
 func msgForNode(node *gocent.NodeInfo) string {
-	addr := state.Cli.Host + ":" + strconv.Itoa(state.Cli.Port)
 	msg := "-------------------------------------------\n"
-	msg = msg + "Stats for node " + node.Name + " (" + addr + ")"
+	msg = msg + "Stats for node " + node.Name + " (" + state.Cli.Addr + ")"
 	msg = msg + "\n-------------------------------------------"
 	return msg
 }

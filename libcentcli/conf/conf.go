@@ -3,10 +3,9 @@ package conf
 import (
 	"errors"
 	"github.com/spf13/viper"
-	"github.com/synw/terr"
 	"github.com/synw/centcli/libcentcli/datatypes"
+	"github.com/synw/terr"
 )
-
 
 func GetServers() (map[string]*datatypes.Server, *terr.Trace) {
 	viper.SetConfigName("config")
@@ -29,10 +28,9 @@ func GetServers() (map[string]*datatypes.Server, *terr.Trace) {
 	for i, _ := range available_servers {
 		sv := available_servers[i].(map[string]interface{})
 		name := sv["name"].(string)
-		host := sv["host"].(string)
-		port := int(sv["port"].(float64))
+		addr := sv["addr"].(string)
 		key := sv["secret"].(string)
-		servers[name] = &datatypes.Server{name, host, port, key}
+		servers[name] = &datatypes.Server{name, addr, key}
 	}
 	return servers, nil
 }

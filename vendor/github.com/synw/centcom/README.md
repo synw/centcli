@@ -7,7 +7,7 @@ Go API for the Centrifugo websockets server.
 Initialize connection:
 
    ```go
-cli := centcom.New("locahost", 8001, "secret_key")
+cli := centcom.New("locahost:8001", "secret_key")
 cli, err := centcom.Connect(cli)
 if err != nil {
 	fmt.Println(err)
@@ -86,8 +86,7 @@ Check the [examples](https://github.com/synw/centcom/tree/master/examples)
 
    ```go
 type Cli struct {
-	Host string
-	Port int
+	Addr string
 	Key string
 	Http *gocent.Client
 	Conn centrifuge.Centrifuge
